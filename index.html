@@ -41,8 +41,8 @@ button{font-family:var(--ft);cursor:pointer;touch-action:manipulation}
 .tab.on{color:var(--ac);font-weight:700;border-top-color:var(--ac)}
 .mbg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
 .mdl{background:var(--bg2);border:1px solid var(--ac);border-radius:14px;padding:16px;max-width:420px;max-height:85vh;overflow-y:auto;width:100%;transition:background .4s,border-color .4s}
-.mnu{background:var(--bg2);border-bottom:1px solid var(--brd);padding:14px;position:fixed;top:0;left:0;right:0;z-index:99;max-width:480px;margin:0 auto;display:none;padding-top:max(14px,env(safe-area-inset-top));transition:background .4s}
-.mnu a{display:block;padding:8px 0;color:var(--ac2);font-size:.86rem;text-decoration:none;font-weight:600;transition:color .4s}
+.mnu{background:var(--bg2);border-bottom:1px solid var(--brd);padding:18px;position:fixed;top:0;left:0;right:0;z-index:99;max-width:480px;margin:0 auto;display:none;padding-top:max(18px,env(safe-area-inset-top));transition:background .4s}
+.mnu a{display:block;padding:12px 0;color:var(--ac2);font-size:1.05rem;text-decoration:none;font-weight:400;transition:color .4s}
 .pz{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--rad);padding:14px;margin-bottom:12px;transition:all .4s}
 .pb{width:100%;padding:14px;border-radius:10px;border:2px dashed var(--brd);background:transparent;color:var(--ac);font-size:.92rem;font-weight:700;font-family:var(--fth);transition:all .4s}
 .pi{width:100%;border-radius:8px;max-height:200px;object-fit:contain;background:#000;margin-top:8px}
@@ -78,18 +78,18 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
   <div style="display:flex;align-items:center;gap:8px"><div class="autosave" id="asv">auto-save</div><div class="sts" id="hsts"></div></div>
 </div>
 <div class="mnu" id="mnu">
-  <div style="font-family:var(--fth);font-weight:700;color:var(--ac);margin-bottom:8px;font-size:1rem;letter-spacing:.04em">Documents</div>
-  <a href="https://www.supermeeple.com/wp-content/uploads/2015/02/FR_VOIDFALL-Rules.pdf" target="_blank">Regles FR</a>
+  <div style="font-family:var(--fth);font-weight:400;color:var(--ac);margin-bottom:10px;font-size:1.2rem;letter-spacing:.04em">Documents</div>
+  <a href="https://www.dropbox.com/scl/fo/tcm90guichszikqublptf/AI931rA3rSgwEd-NvQJ89LI/French?dl=0&rlkey=um9qtcl6ipqrmke2wmzszm8dw&subfolder_nav_tracking=1" target="_blank">Regles FR</a>
   <a href="https://www.supermeeple.com/wp-content/uploads/2015/02/FR_VOIDFALL-Compendium.pdf" target="_blank">Compendium FR</a>
   <a href="https://mindclashgames.com/wp-content/uploads/2023/09/Voidfall-Official_Errata_Clarifications1.0.pdf" target="_blank">Errata officiel</a>
 
-  <div id="setupInfo" style="margin-top:10px;font-size:.78rem;color:#a08ec4"></div>
-  <button onclick="goHome()" style="margin-top:8px;width:100%;padding:11px;background:var(--bg3);border:1px solid var(--ac);border-radius:8px;color:var(--ac);font-size:.86rem;font-weight:600;font-family:var(--fth)">Ecran d'accueil</button>
-  <div style="display:flex;gap:6px;margin-top:6px">
-    <button onclick="exportSaves()" style="flex:1;padding:11px;background:var(--bg3);border:1px solid var(--ok);border-radius:8px;color:var(--ok);font-size:.82rem;font-weight:600">Exporter saves</button>
-    <button onclick="importSaves()" style="flex:1;padding:11px;background:var(--bg3);border:1px solid var(--ac2);border-radius:8px;color:var(--ac2);font-size:.82rem;font-weight:600">Importer saves</button>
+  <div id="setupInfo" style="margin-top:12px;font-size:.88rem;color:#a08ec4"></div>
+  <button onclick="goHome()" style="margin-top:10px;width:100%;padding:14px;background:var(--bg3);border:1px solid var(--ac);border-radius:8px;color:var(--ac);font-size:1rem;font-weight:400;font-family:var(--fth)">Ecran d'accueil</button>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button onclick="exportSaves()" style="flex:1;padding:14px;background:var(--bg3);border:1px solid var(--ok);border-radius:8px;color:var(--ok);font-size:.95rem;font-weight:400">Exporter saves</button>
+    <button onclick="importSaves()" style="flex:1;padding:14px;background:var(--bg3);border:1px solid var(--ac2);border-radius:8px;color:var(--ac2);font-size:.95rem;font-weight:400">Importer saves</button>
   </div>
-  <button onclick="tglM()" style="margin-top:6px;width:100%;padding:11px;background:var(--bg3);border:1px solid var(--brd);border-radius:8px;color:var(--tx2);font-size:.84rem">Fermer</button>
+  <button onclick="tglM()" style="margin-top:8px;width:100%;padding:14px;background:var(--bg3);border:1px solid var(--brd);border-radius:8px;color:var(--tx2);font-size:.95rem;font-weight:400">Fermer</button>
 </div>
 <div class="mbg" id="mbg" onclick="clM()"><div class="mdl" id="mdlI" onclick="event.stopPropagation()"></div></div>
 <div class="ct" id="ct"></div>
