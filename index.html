@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.10.8">
+<meta name="app-version" content="2026.03.10.9">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -262,7 +262,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.10.8";
+var APP_VERSION="2026.03.10.9";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -2447,7 +2447,13 @@ function R(){
     var hasCloud=!!cloudGetToken();
     /* Cloud status indicator */
     if(hasCloud){
-      o+='<div style="text-align:center;margin-bottom:8px"><span style="font-size:.6rem;color:var(--ok);opacity:.7">\u2601 Cloud sync actif</span></div>';
+      var _tk=cloudGetToken();
+      var _tkMask=_tk.slice(0,4)+"\u2026"+_tk.slice(-4);
+      o+='<div style="text-align:center;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px">';
+      o+='<span style="font-size:.6rem;color:var(--ok);opacity:.7">\u2601 Cloud sync actif</span>';
+      o+='<span style="font-size:.55rem;color:var(--tx2);font-family:monospace;opacity:.5">'+_tkMask+'</span>';
+      o+='<button onclick="navigator.clipboard.writeText(\''+_tk+'\').then(function(){alert(\'Token copi\u00e9 !\');});" style="padding:2px 6px;border-radius:4px;border:1px solid var(--bd);background:var(--bg2);color:var(--tx2);font-size:.5rem;opacity:.6">copier</button>';
+      o+='</div>';
     }
     if(saves.length===0){
       o+='<div style="text-align:center;color:var(--tx2);padding:30px 0;font-size:.88rem">Aucune partie sauvegard\u00e9e</div>';
