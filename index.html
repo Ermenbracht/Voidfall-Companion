@@ -916,9 +916,17 @@ function migrate(){
   var houseMap={"Novarchon":"Novaris","Kh'Zeen":"Zenor","Velthari":"Valnis","Dominor":"Astoran","Fenrari":"Fenrax"};
   if(S.house&&houseMap[S.house])S.house=houseMap[S.house];
   /* Force all numeric fields to 0 if undefined/NaN */
-  var numKeys=["cy","mn","ph","inf","rN","rE","rM","rC","rS","pN","pE","pM","pC","pS","vN","vE","vM","vC","vS","cI","cA","cD","nCiv","nCor","crM","crE","cat","crP","grd","com","glo","cor","mnMax","fcMax"];
+  var numKeys=["cy","mn","ph","inf","rN","rE","rM","rC","rS","pN","pE","pM","pC","pS","vN","vE","vM","vC","vS","cI","cA","cD","nCiv","nCor","crM","crE","cat","crP","grd","com","glo","cor","mnMax","fcMax","lS","lG","lE"];
   for(var nk=0;nk<numKeys.length;nk++){var k=numKeys[nk];if(typeof S[k]!=="number"||isNaN(S[k])){if(k==="cy")S[k]=1;else if(k==="mn")S[k]=1;else if(k==="mnMax")S[k]=5;else if(k==="fcMax")S[k]=4;else if(k==="cI")S[k]=14;else S[k]=S[k]||0;}}
   if(!S.ph||typeof S.ph!=="string")S.ph="prep";
+  /* Ensure boolean fields default to false */
+  var boolKeys=["cS","cG","cE"];
+  for(var bk=0;bk<boolKeys.length;bk++){if(S[boolKeys[bk]]===undefined)S[boolKeys[bk]]=false;}
+  /* Ensure string fields default to "" */
+  var strKeys=["comD","gloD","corD","tB","tA","evt","crC","fcS","notes","origin","diff"];
+  for(var sk=0;sk<strKeys.length;sk++){if(S[strKeys[sk]]===undefined)S[strKeys[sk]]="";}
+  /* Ensure array/object fields */
+  if(!Array.isArray(S.pr))S.pr=[{t:"",p:true,c:false},{t:"",p:true,c:false},{t:"",p:true,c:false},{t:"",p:true,c:false}];
   /* Force all tile numeric fields to 0 if undefined/NaN */
   if(S.tiles){for(var tk2 in S.tiles){var _t2=S.tiles[tk2];var tKeys=["pop","gN","gE","gM","gC","gS","cv","cb","prm","glo","lib"];for(var ti=0;ti<tKeys.length;ti++){if(typeof _t2[tKeys[ti]]!=="number"||isNaN(_t2[tKeys[ti]]))_t2[tKeys[ti]]=0;}}}
 }
