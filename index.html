@@ -1280,11 +1280,11 @@ function renderTileDetail(c){
     }
 
     /* Installations — toggles avec noms complets */
-    o+='<div class="td-row"><label>'+L("satellite","ic-sm")+' Base Stellaire</label>';
+    o+='<div class="td-row"><label><span style="color:#60a5fa">'+L("satellite","ic-sm")+'</span> Base Stellaire</label>';
     o+='<span class="tgl'+(t.iBS?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iBS\')">'+(t.iBS?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
-    o+='<div class="td-row"><label>'+L("anchor","ic-sm")+' Chantier Naval</label>';
+    o+='<div class="td-row"><label><span style="color:#4ade80">'+L("anchor","ic-sm")+'</span> Chantier Naval</label>';
     o+='<span class="tgl'+(t.iCN?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iCN\')">'+(t.iCN?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
-    o+='<div class="td-row"><label>'+L("shield","ic-sm")+' Défense de Secteur</label>';
+    o+='<div class="td-row"><label><span style="color:#f472b6">'+L("shield","ic-sm")+'</span> Défense de Secteur</label>';
     o+='<span class="tgl'+(t.iDS?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iDS\')">'+(t.iDS?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
 
     /* État Pur/Corrompu */
