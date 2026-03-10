@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.10.5">
+<meta name="app-version" content="2026.03.10.6">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -262,7 +262,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.10.5";
+var APP_VERSION="2026.03.10.6";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -937,6 +937,137 @@ function saveState(){
   setSavesIdx(saves);
   /* Periodic auto-backup */
   autoBackup();
+  /* Cloud sync (debounced) */
+  cloudSyncPush();
+}
+
+/* =================================================================
+   CLOUD SYNC — GitHub Gist
+   Saves all game data to a private Gist. Works across any browser/device.
+   Token stored in localStorage key "vft2_gh_token".
+   Gist ID stored in localStorage key "vft2_gh_gist".
+   ================================================================= */
+var CLOUD_TOKEN_KEY="vft2_gh_token";
+var CLOUD_GIST_KEY="vft2_gh_gist";
+var _cloudPushTimer=null;
+var _cloudSyncing=false;
+
+function cloudGetToken(){try{return localStorage.getItem(CLOUD_TOKEN_KEY)||"";}catch(e){return "";}}
+function cloudSetToken(t){try{localStorage.setItem(CLOUD_TOKEN_KEY,t);}catch(e){}}
+function cloudGetGistId(){try{return localStorage.getItem(CLOUD_GIST_KEY)||"";}catch(e){return "";}}
+function cloudSetGistId(id){try{localStorage.setItem(CLOUD_GIST_KEY,id);}catch(e){}}
+
+/* Build the full saves payload for the gist */
+function _cloudPayload(){
+  var payload={idx:getSaves(),saves:{}};
+  var saves=getSaves();
+  for(var i=0;i<saves.length;i++){
+    try{var d=localStorage.getItem("vft2_s_"+saves[i].id);if(d)payload.saves[saves[i].id]=JSON.parse(d);}catch(e){}
+  }
+  return payload;
+}
+
+/* Debounced push — waits 3s after last save before pushing */
+function cloudSyncPush(){
+  var token=cloudGetToken();
+  if(!token)return;
+  if(_cloudPushTimer)clearTimeout(_cloudPushTimer);
+  _cloudPushTimer=setTimeout(function(){_cloudDoPush();},3000);
+}
+
+/* Actual push to Gist */
+function _cloudDoPush(){
+  var token=cloudGetToken();
+  if(!token||_cloudSyncing)return;
+  _cloudSyncing=true;
+  var payload=_cloudPayload();
+  var body=JSON.stringify({description:"Voidfall Companion — Cloud Save",public:false,files:{"voidfall-save.json":{content:JSON.stringify(payload)}}});
+  var gistId=cloudGetGistId();
+  var url=gistId?"https://api.github.com/gists/"+gistId:"https://api.github.com/gists";
+  var method=gistId?"PATCH":"POST";
+  fetch(url,{method:method,headers:{"Authorization":"token "+token,"Content-Type":"application/json","Accept":"application/vnd.github.v3+json"},body:body})
+  .then(function(r){
+    if(r.status===401||r.status===403){console.warn("[Cloud] Token invalide");_cloudSyncing=false;return;}
+    if(!r.ok){console.warn("[Cloud] Erreur "+r.status);_cloudSyncing=false;return;}
+    return r.json();
+  })
+  .then(function(data){
+    if(data&&data.id&&!gistId){cloudSetGistId(data.id);console.log("[Cloud] Gist créé: "+data.id);}
+    _cloudSyncing=false;
+  })
+  .catch(function(e){console.warn("[Cloud] "+e.message);_cloudSyncing=false;});
+}
+
+/* Pull from Gist — called on page load if no local saves */
+function cloudSyncPull(cb){
+  var token=cloudGetToken();
+  var gistId=cloudGetGistId();
+  if(!token){if(cb)cb(false);return;}
+  /* If no gist ID, try to find it from user's gists */
+  if(!gistId){
+    fetch("https://api.github.com/gists?per_page=100",{headers:{"Authorization":"token "+token,"Accept":"application/vnd.github.v3+json"}})
+    .then(function(r){return r.json();})
+    .then(function(gists){
+      if(!Array.isArray(gists)){if(cb)cb(false);return;}
+      for(var i=0;i<gists.length;i++){
+        if(gists[i].files&&gists[i].files["voidfall-save.json"]){
+          cloudSetGistId(gists[i].id);
+          _cloudPullGist(gists[i].id,cb);
+          return;
+        }
+      }
+      if(cb)cb(false);
+    })
+    .catch(function(){if(cb)cb(false);});
+    return;
+  }
+  _cloudPullGist(gistId,cb);
+}
+
+function _cloudPullGist(gistId,cb){
+  var token=cloudGetToken();
+  fetch("https://api.github.com/gists/"+gistId,{headers:{"Authorization":"token "+token,"Accept":"application/vnd.github.v3+json"}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(!data||!data.files||!data.files["voidfall-save.json"]){if(cb)cb(false);return;}
+    try{
+      var payload=JSON.parse(data.files["voidfall-save.json"].content);
+      if(!payload.idx||!payload.saves){if(cb)cb(false);return;}
+      /* Restore all saves to localStorage */
+      var restored=0;
+      for(var i=0;i<payload.idx.length;i++){
+        var sid=payload.idx[i].id;
+        if(payload.saves[sid]){
+          localStorage.setItem("vft2_s_"+sid,JSON.stringify(payload.saves[sid]));
+          restored++;
+        }
+      }
+      setSavesIdx(payload.idx);
+      console.log("[Cloud] Restauré "+restored+" partie(s) depuis le cloud");
+      if(cb)cb(restored>0);
+    }catch(e){if(cb)cb(false);}
+  })
+  .catch(function(){if(cb)cb(false);});
+}
+
+/* Setup cloud sync — called from settings */
+function cloudSetup(token){
+  if(!token||token.length<10)return false;
+  cloudSetToken(token);
+  /* Verify token works */
+  fetch("https://api.github.com/user",{headers:{"Authorization":"token "+token,"Accept":"application/vnd.github.v3+json"}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data&&data.login){
+      alert("Cloud sync activé pour "+data.login+" !");
+      /* Push current saves immediately */
+      if(getSaves().length>0)_cloudDoPush();
+      /* Or pull if we have nothing locally */
+      else cloudSyncPull(function(ok){if(ok){screen="saves";R();}});
+    }else{alert("Token invalide. Vérifie et réessaie.");}
+  })
+  .catch(function(){alert("Erreur réseau. Réessaie.");});
+  return true;
 }
 
 function createSave(){
@@ -2313,6 +2444,11 @@ function R(){
     o+='<div style="font-size:.85rem;color:var(--tx2);margin-top:4px">Solo Tracker</div>';
     o+='</div>';
     var saves=getSaves();
+    var hasCloud=!!cloudGetToken();
+    /* Cloud status indicator */
+    if(hasCloud){
+      o+='<div style="text-align:center;margin-bottom:8px"><span style="font-size:.6rem;color:var(--ok);opacity:.7">\u2601 Cloud sync actif</span></div>';
+    }
     if(saves.length===0){
       o+='<div style="text-align:center;color:var(--tx2);padding:30px 0;font-size:.88rem">Aucune partie sauvegard\u00e9e</div>';
       /* Auto-detect backups when saves are empty — silent recovery */
@@ -2327,6 +2463,20 @@ function R(){
           o+='<button onclick="recoverFromBak(\''+bk.bakKey+'\','+bk.idx+')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--ok);background:rgba(56,191,194,.1);color:var(--ok);font-size:.65rem;font-weight:600">R\u00e9cup\u00e9rer</button>';
           o+='</div>';
         }
+        o+='</div>';
+      }
+      /* Cloud sync: if token but no local saves, show pull option */
+      if(hasCloud&&!allBaks.length){
+        o+='<div style="text-align:center;padding:16px;margin:12px"><div style="color:var(--tx2);font-size:.7rem;margin-bottom:8px">Recherche des saves dans le cloud...</div></div>';
+        setTimeout(function(){cloudSyncPull(function(ok){if(ok){screen="saves";R();}});},200);
+      }
+      /* No cloud token → show setup */
+      if(!hasCloud){
+        o+='<div style="padding:16px;margin:16px 12px 0;border:1px solid var(--bd);border-radius:10px;background:var(--bg2)">';
+        o+='<div style="font-size:.72rem;font-weight:600;color:var(--tx);margin-bottom:6px">\u2601 Cloud Sync</div>';
+        o+='<div style="font-size:.62rem;color:var(--tx2);margin-bottom:10px;line-height:1.5">Synchronise tes saves sur tous tes navigateurs.<br>Cr\u00e9e un token GitHub <a href="https://github.com/settings/tokens/new?scopes=gist&description=Voidfall+Companion" target="_blank" style="color:var(--ac)">ici</a> (coche seulement <strong>gist</strong>) et colle-le :</div>';
+        o+='<div style="display:flex;gap:6px"><input id="cloudTk" type="text" placeholder="ghp_xxxxxxxxxxxx" style="flex:1;padding:8px;border-radius:6px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:.7rem;font-family:monospace">';
+        o+='<button onclick="var t=document.getElementById(\'cloudTk\').value.trim();if(t)cloudSetup(t);" style="padding:8px 14px;border-radius:6px;border:1px solid var(--ok);background:rgba(56,191,194,.1);color:var(--ok);font-size:.7rem;font-weight:600;white-space:nowrap">Activer</button></div>';
         o+='</div>';
       }
     }else{
@@ -2495,12 +2645,19 @@ if(saves.length>0&&hashSecs&&hashSecs.length){
   saves.sort(function(a,b){return(b.ts||0)-(a.ts||0);});
   if(loadSave(saves[0].id)){sel=hashSecs;screen="input";}
   else{screen="saves";}
+  R();
 }else if(saves.length>0){
   screen="saves";
+  R();
+}else if(cloudGetToken()){
+  /* No local saves but cloud token exists → try auto-pull */
+  screen="saves";
+  R();
+  cloudSyncPull(function(ok){if(ok){screen="saves";R();}});
 }else{
-  screen="setup";
+  screen="saves";
+  R();
 }
-R();
 
 window.addEventListener("hashchange",function(){
   var hs=parseHash();
