@@ -729,6 +729,11 @@ function getScenarioStorms(){
   if(!key||!SCENARIO_MAPS[key])return[];
   return SCENARIO_MAPS[key].storms||[];
 }
+function getScenarioStartData(){
+  var key=getScenarioKey();
+  if(!key||!SCENARIO_MAPS[key])return{};
+  return SCENARIO_MAPS[key].startData||{};
+}
 
 /* =================================================================
    STATE
@@ -1149,39 +1154,47 @@ function renderHexGrid(){
   var totalW=colSpan*HSPACE+HW+HGAP*2;
   var totalH=rowSpan*VSPACE+HH+VSPACE/2+VGAP*2;
 
+  var scenSD=getScenarioStartData();
+
   var o='<div class="hex-map" style="height:'+totalH+'px;width:'+totalW+'px">';
 
   for(var i=0;i<allPos.length;i++){
     var pos=allPos[i];
-    /* Flat-top: x based on column, odd columns shifted down by HH/2 */
     var x=(pos.col-minC)*HSPACE;
     var y=(pos.row-minR)*VSPACE+(pos.col%2!==0?HH/2:0);
     var t=S.tiles[pos.c];
+    var sd=scenSD[pos.c]; /* scenario default data as fallback */
 
     var cls="hex-cell";
     var isMD=pos.lbl==="MD";
     if(pos.isFaille){
-      if(t){cls+=t.own?" own":" nea";}else{cls+=" faille";}
+      cls+=(t&&t.own)?" own":" faille"; /* Faille = toujours rouge sauf si conquis */
     } else if(isMD){
       cls+=" md";
     } else if(t){
       cls+=t.own?" own":" nea";
+    } else if(sd){
+      cls+=" nea";
     } else {
       cls+=" empty";
     }
 
     var wc="hex-wrap";
-    if(pos.isFaille&&!t)wc+=" hw-faille";
+    if(pos.isFaille&&!(t&&t.own))wc+=" hw-faille";
     else if(isMD)wc+=" hw-md";
     else if(t&&t.own)wc+=" hw-own";
     else if(t&&!t.own)wc+=" hw-nea";
+    else if(sd)wc+=" hw-nea";
     if(selTile===pos.c)wc+=" hw-sel";
 
     o+='<div class="'+wc+'" style="left:'+x+'px;top:'+y+'px;width:'+HW+'px;height:'+HH+'px">';
     o+='<button class="'+cls+'" onclick="tapTile(\''+pos.c+'\')">';
     var topTxt=pos.secNum||pos.c;
     o+='<span class="hc-co">'+topTxt+'</span>';
-    if(t){
+    if(isMD){
+      /* Maison Déchue: juste "MD" */
+      o+='<span class="hc-lbl" style="color:#c9a0dc;opacity:1;font-size:.7rem">MD</span>';
+    } else if(t){
       if(t.own){
         o+='<span class="hc-in">'+t.pop+'</span>';
         o+='<span class="hc-sub">'+(t.pur?'pur':'corr')+'</span>';
@@ -1197,6 +1210,15 @@ function renderHexGrid(){
         var subLbl=pos.lbl||'n\u00e9ant';
         o+='<span class="hc-sub">'+subLbl+'</span>';
       }
+    } else if(sd){
+      var ni=[];
+      if(sd.cv)ni.push(sd.cv+'\u00d7\u25a0');
+      if(sd.pop)ni.push('pop'+sd.pop);
+      if(sd.glo)ni.push('\u2605'+sd.glo);
+      if(sd.iDS)ni.push('DS');
+      var nTxt=ni.length?ni.join(' '):'\u2014';
+      o+='<span class="hc-in">'+nTxt+'</span>';
+      o+='<span class="hc-sub">n\u00e9ant</span>';
     } else if(pos.lbl && pos.lbl!==pos.secNum){
       o+='<span class="hc-lbl">'+pos.lbl+'</span>';
     }
