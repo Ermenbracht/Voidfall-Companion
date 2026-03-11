@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.10.10">
+<meta name="app-version" content="2026.03.10.11">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -437,11 +437,11 @@ var SCENARIO_MAPS={
   faille:[],
   startData:{
     "2,0":{own:false,cv:3},                         // #10 Faille: 3× Néant
-    "1,0":{own:false,cv:3,pop:4,glo:4,iDS:true},    // #8  DS
+    "1,0":{own:false,cv:3,pop:4,glo:4,iDS:1},    // #8  DS
     "0,1":{own:false,cv:1,pop:2,glo:1},              // #7
     "2,1":{own:false,cv:1,pop:2,glo:1},              // #9
     "1,1":{own:false,cv:2,pop:3,glo:2},              // #5
-    "2,2":{own:false,cv:1,pop:2,glo:3,iDS:true},     // #6  DS
+    "2,2":{own:false,cv:1,pop:2,glo:3,iDS:1},     // #6  DS
     "1,2":{own:false,cv:2,pop:3,glo:2},              // #2
     "2,3":{own:false,glo:1}                           // #3  MD
   }
@@ -471,9 +471,9 @@ var SCENARIO_MAPS={
   faille:[],
   startData:{
     "0,1":{own:false,cv:3},                       // #1 Faille: 3× Néant
-    "0,2":{own:false,cv:2,pop:4,glo:4,iDS:true},  // #2 DS + Harbinger
+    "0,2":{own:false,cv:2,pop:4,glo:4,iDS:1},  // #2 DS + Harbinger
     "0,3":{own:false,pop:3},                       // #3 Survivants
-    "1,0":{own:false,cv:2,pop:5,glo:4,iDS:true},  // #4 DS + Harbinger
+    "1,0":{own:false,cv:2,pop:5,glo:4,iDS:1},  // #4 DS + Harbinger
     "1,1":{own:false,cv:2,pop:3,glo:2},            // #5
     "1,2":{own:false,cv:3,pop:3,glo:2},            // #6 Genesis
     "1,3":{own:false,glo:1},                       // #7 MD (pop fixée par carte)
@@ -507,13 +507,13 @@ var SCENARIO_MAPS={
   faille:[],
   startData:{
     "0,0":{own:false,cv:3},                        // #1 Faille
-    "0,1":{own:false,cv:1,pop:4,glo:3,iDS:true},   // #2
-    "0,2":{own:false,cv:2,pop:4,glo:4,iDS:true},   // #3
-    "1,0":{own:false,cv:2,pop:3,glo:2,iDS:true},   // #4 Palais
+    "0,1":{own:false,cv:1,pop:4,glo:3,iDS:1},   // #2
+    "0,2":{own:false,cv:2,pop:4,glo:4,iDS:1},   // #3
+    "1,0":{own:false,cv:2,pop:3,glo:2,iDS:1},   // #4 Palais
     "1,1":{own:false,cv:3,pop:3,glo:2},             // #5 Genesis
     "1,2":{own:false,glo:1},                        // #6 Astéroïdes
-    "2,0":{own:false,cv:1,pop:4,glo:3,iDS:true},   // #7
-    "2,1":{own:false,cv:2,pop:4,glo:3,iDS:true},   // #8
+    "2,0":{own:false,cv:1,pop:4,glo:3,iDS:1},   // #7
+    "2,1":{own:false,cv:2,pop:4,glo:3,iDS:1},   // #8
     "2,2":{own:false,cv:2,pop:3,glo:2},             // #9
     "3,0":{own:false,cv:3,glo:3},                   // #10 Faille + Harbinger
     "3,1":{own:false,glo:1}                         // #11 MD
@@ -547,15 +547,15 @@ var SCENARIO_MAPS={
   startData:{
     "0,1":{own:false,cv:3,pop:3,glo:2},             // #1 Genesis
     "0,2":{own:false,cv:2},                          // #2 Ruines
-    "1,0":{own:false,cv:2,pop:4,glo:1,iBS:true},    // #3 Recherche (BS!)
+    "1,0":{own:false,cv:2,pop:4,glo:1,iBS:1},    // #3 Recherche (BS!)
     "1,1":{own:false},                               // #4 Trou de Ver
     "1,2":{own:false,glo:1},                         // #5 MD
-    "2,0":{own:false,cv:2,pop:5,glo:4,iDS:true},    // #6
-    "2,1":{own:false,cv:2,pop:4,glo:3,iDS:true},    // #7
+    "2,0":{own:false,cv:2,pop:5,glo:4,iDS:1},    // #6
+    "2,1":{own:false,cv:2,pop:4,glo:3,iDS:1},    // #7
     "2,2":{own:false,cv:2,pop:3,glo:2},              // #8
     "2,3":{own:false,cv:1,pop:2,glo:1},              // #9
-    "3,0":{own:false,cv:2,pop:5,glo:4,iDS:true},    // #10
-    "3,1":{own:false,cv:2,pop:4,glo:3,iDS:true},    // #11 Monde-Paradis
+    "3,0":{own:false,cv:2,pop:5,glo:4,iDS:1},    // #10
+    "3,1":{own:false,cv:2,pop:4,glo:3,iDS:1},    // #11 Monde-Paradis
     "4,1":{own:false,cv:3}                           // #13 Faille
   }
 },
@@ -587,18 +587,18 @@ var SCENARIO_MAPS={
   faille:[],
   startData:{
     "0,0":{own:false,cv:3},                          // #1 Faille
-    "0,1":{own:false,cv:2,pop:5,glo:4,iDS:true},     // #2
+    "0,1":{own:false,cv:2,pop:5,glo:4,iDS:1},     // #2
     "0,2":{own:false,cv:2,pop:3,glo:2},               // #3
     "0,3":{own:false},                                // #4 Trou de Ver
     "0,4":{own:false,pop:3},                          // #5 Relais
-    "1,0":{own:false,cv:2,pop:4,glo:4,iDS:true},     // #6
-    "1,1":{own:false,cv:1,pop:4,glo:3,iDS:true},     // #7
+    "1,0":{own:false,cv:2,pop:4,glo:4,iDS:1},     // #6
+    "1,1":{own:false,cv:1,pop:4,glo:3,iDS:1},     // #7
     "1,2":{own:false,glo:1},                          // #8 MD
     "2,1":{own:false,cv:2,pop:3,glo:2},               // #9
     "2,2":{own:false,cv:2,pop:3,glo:2},               // #10
     "2,3":{own:false},                                // #11 Trou de Ver
     "3,1":{own:false},                                // #12 Trou de Ver
-    "4,2":{own:false,cv:2,pop:4,glo:3,iDS:true}      // #14 Genesis
+    "4,2":{own:false,cv:2,pop:4,glo:3,iDS:1}      // #14 Genesis
   }
 },
 /* ==========================================================
@@ -625,15 +625,15 @@ var SCENARIO_MAPS={
   faille:[],
   startData:{
     "0,3":{own:false,glo:1},                          // #2 Astéroïdes
-    "0,4":{own:false,cv:2,pop:4,iDS:true},            // #3
+    "0,4":{own:false,cv:2,pop:4,iDS:1},            // #3
     "1,0":{own:false,glo:1},                          // #4 MD
-    "1,2":{own:false,cv:1,pop:4,glo:3,iDS:true},     // #5
-    "1,3":{own:false,cv:3,pop:6,glo:5,iDS:true},     // #6 Mégalopolis
-    "1,4":{own:false,cv:2,pop:5,glo:4,iDS:true},     // #7
+    "1,2":{own:false,cv:1,pop:4,glo:3,iDS:1},     // #5
+    "1,3":{own:false,cv:3,pop:6,glo:5,iDS:1},     // #6 Mégalopolis
+    "1,4":{own:false,cv:2,pop:5,glo:4,iDS:1},     // #7
     "2,1":{own:false,cv:1,pop:2,glo:1},               // #8
     "2,2":{own:false,cv:2,pop:3,glo:2},               // #9
-    "2,3":{own:false,cv:2,pop:4,glo:3,iDS:true},     // #10 Monde-Paradis
-    "2,4":{own:false,cv:2,pop:4,iDS:true}              // #11
+    "2,3":{own:false,cv:2,pop:4,glo:3,iDS:1},     // #10 Monde-Paradis
+    "2,4":{own:false,cv:2,pop:4,iDS:1}              // #11
   }
 },
 /* ==========================================================
@@ -665,12 +665,12 @@ var SCENARIO_MAPS={
     "1,2":{own:false,cv:2,pop:2,glo:1},                // #3 Genesis
     "2,1":{own:false,glo:1},                           // #4 MD
     "2,2":{own:false,cv:2,pop:3,glo:2},                // #5
-    "3,0":{own:false,cv:2,pop:4,glo:4,iDS:true},      // #6
-    "3,1":{own:false,cv:3,pop:4,glo:3,iBS:true},      // #7 Recherche (BS!)
-    "3,2":{own:false,cv:1,pop:4,glo:3,iDS:true},      // #8
+    "3,0":{own:false,cv:2,pop:4,glo:4,iDS:1},      // #6
+    "3,1":{own:false,cv:3,pop:4,glo:3,iBS:1},      // #7 Recherche (BS!)
+    "3,2":{own:false,cv:1,pop:4,glo:3,iDS:1},      // #8
     "4,0":{own:false,cv:3},                            // #9 Faille
-    "4,1":{own:false,cv:2,pop:3,glo:2,iDS:true},      // #10 Palais
-    "4,2":{own:false,cv:3,pop:6,glo:5,iDS:true},      // #11 Mégalopolis
+    "4,1":{own:false,cv:2,pop:3,glo:2,iDS:1},      // #10 Palais
+    "4,2":{own:false,cv:3,pop:6,glo:5,iDS:1},      // #11 Mégalopolis
     "4,3":{own:false,cv:4}                             // #12 Faille (4×!)
   }
 },
@@ -709,9 +709,9 @@ var SCENARIO_MAPS={
     "3,2":{own:false,cv:2,pop:3,glo:2},               // #8
     "3,3":{own:false},                                // #9 Trou de Ver
     "4,1":{own:false,cv:3},                           // #10 Faille
-    "4,2":{own:false,cv:2,pop:4,glo:4,iDS:true},     // #11
-    "4,3":{own:false,cv:1,pop:4,glo:3,iDS:true},     // #12
-    "5,1":{own:false,cv:3,pop:6,glo:5,iDS:true}      // #13 Mégalopolis
+    "4,2":{own:false,cv:2,pop:4,glo:4,iDS:1},     // #11
+    "4,3":{own:false,cv:1,pop:4,glo:3,iDS:1},     // #12
+    "5,1":{own:false,cv:3,pop:6,glo:5,iDS:1}      // #13 Mégalopolis
   }
 }
 };
@@ -775,7 +775,7 @@ function newState(nm,ho,sc,di){
 function newTile(typ){
   /* typ: "j"=Joueur, "n"=Neant, "md"=Maison Dechue, "f"=Faille */
   if(typ===true)typ="j";if(typ===false)typ="n";if(!typ)typ="n";
-  return {typ:typ,own:typ==="j",pop:0,gN:0,gE:0,gM:0,gC:0,gS:0,iBS:false,iCN:false,iDS:false,pur:typ!=="md",cv:0,ships:[],grd:false,prm:0,glo:0,lib:0};
+  return {typ:typ,own:typ==="j",pop:0,gN:0,gE:0,gM:0,gC:0,gS:0,iBS:0,iCN:0,iDS:0,pur:typ!=="md",cv:0,ships:[],grd:false,prm:0,glo:0,lib:0,mdH:""};
 }
 
 /* Pré-remplissage automatique des tuiles selon le scénario */
@@ -1153,14 +1153,14 @@ function migrate(){
   if(!S.crSlots)S.crSlots={m:["","","",""],e:["","","",""]};
   if(S.crDraw===undefined)S.crDraw="";
   /* Ensure new tile fields */
-  if(S.tiles){for(var tk in S.tiles){var _t=S.tiles[tk];if(typeof _t.prm==="boolean")_t.prm=_t.prm?1:0;if(_t.glo===undefined)_t.glo=0;if(_t.lib===undefined)_t.lib=0;if(_t.iDS===undefined)_t.iDS=false;}}
+  if(S.tiles){for(var tk in S.tiles){var _t=S.tiles[tk];if(typeof _t.prm==="boolean")_t.prm=_t.prm?1:0;if(_t.glo===undefined)_t.glo=0;if(_t.lib===undefined)_t.lib=0;if(_t.iDS===undefined)_t.iDS=0;if(typeof _t.iBS==="boolean")_t.iBS=_t.iBS?1:0;if(typeof _t.iCN==="boolean")_t.iCN=_t.iCN?1:0;if(typeof _t.iDS==="boolean")_t.iDS=_t.iDS?1:0;}}
   /* Migrate old sec array to tiles */
   if(S.sec&&!S.tiles){
     S.tiles={};
     for(var i=0;i<S.sec.length;i++){
       var old=S.sec[i];
       var c=(i%GRID_COLS+1)+","+(Math.floor(i/GRID_COLS)+1);
-      S.tiles[c]={pop:old.pop||0,gN:0,gE:0,gM:0,gC:0,gS:0,iBS:false,iCN:false,pur:old.pur!==false,cv:old.cv||0,cb:old.cb||0,grd:false,prm:false,own:true};
+      S.tiles[c]={pop:old.pop||0,gN:0,gE:0,gM:0,gC:0,gS:0,iBS:0,iCN:0,iDS:0,pur:old.pur!==false,cv:old.cv||0,cb:old.cb||0,grd:false,prm:false,own:true};
     }
     delete S.sec;delete S.neaT;
   }
@@ -1185,12 +1185,14 @@ function migrate(){
   if(!Array.isArray(S.pr))S.pr=[{t:"",p:true,c:false},{t:"",p:true,c:false},{t:"",p:true,c:false},{t:"",p:true,c:false}];
   /* Force all tile numeric fields to 0 if undefined/NaN + migrate typ/ships */
   if(S.tiles){for(var tk2 in S.tiles){var _t2=S.tiles[tk2];
-    var tKeys=["pop","gN","gE","gM","gC","gS","cv","prm","glo","lib"];
+    var tKeys=["pop","gN","gE","gM","gC","gS","cv","prm","glo","lib","iBS","iCN","iDS"];
     for(var ti=0;ti<tKeys.length;ti++){if(typeof _t2[tKeys[ti]]!=="number"||isNaN(_t2[tKeys[ti]]))_t2[tKeys[ti]]=0;}
     /* Migrate typ from old own boolean */
     if(!_t2.typ){_t2.typ=_t2.own?"j":"n";_t2.own=_t2.typ==="j";}
     /* Migrate ships from old cv/cb (idempotent: only adds ships array if missing, never deletes fields) */
     if(!Array.isArray(_t2.ships)){_t2.ships=[];if(_t2.own&&_t2.cv>0){for(var si=0;si<_t2.cv;si++)_t2.ships.push({type:"corvette",cubes:0});}}
+    /* Ensure mdH field */
+    if(_t2.mdH===undefined)_t2.mdH="";
   }}
 }
 function resetSetup(){if(confirm("Modifier les infos de la partie ?")){screen="setup";tglMenu();R();}}
@@ -1230,11 +1232,12 @@ function tSetTyp(c,typ){
   if(typ==="j"){t.pop=t.pop||1;t.pur=true;t.cv=0;t.grd=false;t.prm=0;t.lib=0;if(!Array.isArray(t.ships))t.ships=[];}
   else if(typ==="n"){t.pur=true;if(!Array.isArray(t.ships))t.ships=[];}
   else if(typ==="md"){t.pur=false;t.cv=0;t.grd=false;t.prm=0;t.lib=0;t.ships=[];}
-  else if(typ==="f"){t.pop=0;t.gN=0;t.gE=0;t.gM=0;t.gC=0;t.gS=0;t.iBS=false;t.iCN=false;t.iDS=false;t.pur=true;t.grd=false;t.prm=0;t.glo=0;t.lib=0;t.ships=[];}
+  else if(typ==="f"){t.pop=0;t.gN=0;t.gE=0;t.gM=0;t.gC=0;t.gS=0;t.iBS=0;t.iCN=0;t.iDS=0;t.pur=true;t.grd=false;t.prm=0;t.glo=0;t.lib=0;t.ships=[];}
   saveState();R();
 }
 /* Legacy wrapper */
 function tSetOwn(c,own){tSetTyp(c,own?"j":"n");}
+function tSetMdH(c,v){var t=S.tiles[c];if(!t)return;t.mdH=v;saveState();R();}
 
 /* Position helpers */
 function cycCy(){S.cy=S.cy>=3?1:S.cy+1;saveState();R();}
@@ -1504,7 +1507,7 @@ function renderHexGrid(){
         o+='<span class="hc-sub">'+(t.pur?'pur':'corr')+'</span>';
       }else if(tp==="md"){
         o+='<span class="hc-in">'+(t.pop||'')+'</span>';
-        o+='<span class="hc-sub" style="color:#c9a0dc">MD</span>';
+        o+='<span class="hc-sub" style="color:#c9a0dc">'+(t.mdH||'MD')+'</span>';
       }else if(tp==="f"){
         o+='<span class="hc-in">'+(t.cv?t.cv+'\u00d7\u25a0':'')+'</span>';
         o+='<span class="hc-sub">faille</span>';
@@ -1513,7 +1516,7 @@ function renderHexGrid(){
         if(t.cv)ni.push(t.cv+'\u00d7\u25a0');
         if(t.pop)ni.push('pop'+t.pop);
         if(t.glo)ni.push('\u2605'+t.glo);
-        if(t.iDS)ni.push('DS');
+        if(t.iDS)ni.push((t.iDS>1?t.iDS+'\u00d7':'')+'DS');
         if(t.grd)ni.push('G');
         var nTxt=ni.length?ni.join(' '):'\u2014';
         o+='<span class="hc-in">'+nTxt+'</span>';
@@ -1524,7 +1527,7 @@ function renderHexGrid(){
       if(sd.cv)ni.push(sd.cv+'\u00d7\u25a0');
       if(sd.pop)ni.push('pop'+sd.pop);
       if(sd.glo)ni.push('\u2605'+sd.glo);
-      if(sd.iDS)ni.push('DS');
+      if(sd.iDS)ni.push((sd.iDS>1?sd.iDS+'\u00d7':'')+'DS');
       var nTxt=ni.length?ni.join(' '):'\u2014';
       o+='<span class="hc-in">'+nTxt+'</span>';
       o+='<span class="hc-sub">'+(pos.lbl==="MD"?'MD':'n\u00e9ant')+'</span>';
@@ -1576,6 +1579,15 @@ function renderTileDetail(c){
   o+='<button style="flex:1" class="'+(tp==="f"?"sf":"")+'" onclick="tSetTyp(\''+c+'\',\'f\')">'+L("flame","ic-sm")+' Faille</button>';
   o+='</div>';
 
+  /* --- Maison Déchue: dropdown choix maison --- */
+  if(tp==="md"){
+    o+='<div class="td-row"><label>'+L("crown","ic-sm")+' Maison</label>';
+    o+='<select style="font-size:.75rem;padding:4px 8px;border-radius:6px;border:1px solid var(--brd);background:var(--bg3);color:var(--tx)" onchange="tSetMdH(\''+c+'\',this.value)">';
+    o+='<option value=""'+((!t.mdH)?' selected':'')+'>— Choisir —</option>';
+    for(var hi=0;hi<HOUSES.length;hi++){o+='<option value="'+HOUSES[hi]+'"'+(t.mdH===HOUSES[hi]?' selected':'')+'>'+HOUSES[hi]+'</option>';}
+    o+='</select></div>';
+  }
+
   /* --- Cubes Néant (n, f) --- */
   if(tp==="n"||tp==="f"){
     o+=tctr(c,"cv","Cubes N\u00e9ant",t.cv,0,10);
@@ -1597,16 +1609,13 @@ function renderTileDetail(c){
     }
   }
 
-  /* --- Installations (j=toutes, n=DS, md=toutes) --- */
+  /* --- Installations (j=toutes, n=DS, md=toutes) — compteurs multiples --- */
   if(tp==="j"||tp==="md"){
-    o+='<div class="td-row"><label><span style="color:#60a5fa">'+L("satellite","ic-sm")+'</span> Base Stellaire</label>';
-    o+='<span class="tgl'+(t.iBS?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iBS\')">'+(t.iBS?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
-    o+='<div class="td-row"><label><span style="color:#4ade80">'+L("anchor","ic-sm")+'</span> Chantier Naval</label>';
-    o+='<span class="tgl'+(t.iCN?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iCN\')">'+(t.iCN?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
+    o+=tctr(c,"iBS",L("satellite","ic-sm")+' <span style="color:#60a5fa">Base Stellaire</span>',t.iBS,0,5);
+    o+=tctr(c,"iCN",L("anchor","ic-sm")+' <span style="color:#4ade80">Chantier Naval</span>',t.iCN,0,5);
   }
   if(tp==="j"||tp==="n"||tp==="md"){
-    o+='<div class="td-row"><label><span style="color:#f472b6">'+L("shield","ic-sm")+'</span> D\u00e9fense de Secteur</label>';
-    o+='<span class="tgl'+(t.iDS?" on-g":"")+'" onclick="ttog(\''+c+'\',\'iDS\')">'+(t.iDS?L("check","ic-sm")+" Oui":"Non")+'</span></div>';
+    o+=tctr(c,"iDS",L("shield","ic-sm")+' <span style="color:#f472b6">D\u00e9fense de Secteur</span>',t.iDS,0,5);
   }
 
   /* --- Pur/Corrompu (j=toggle, md=fixe corrompu) --- */
@@ -2004,7 +2013,7 @@ function genSave(){
       var guilds=[];
       for(var gg=0;gg<GUILDS.length;gg++){var gl=GUILDS[gg];if(t[gl.k]>0)guilds.push(t[gl.k]+"x "+gl.nm);}
       var inst=[];
-      if(t.iBS)inst.push("BS");if(t.iCN)inst.push("CN");if(t.iDS)inst.push("DS");
+      if(t.iBS)inst.push((t.iBS>1?t.iBS+"×":"")+"BS");if(t.iCN)inst.push((t.iCN>1?t.iCN+"×":"")+"CN");if(t.iDS)inst.push((t.iDS>1?t.iDS+"×":"")+"DS");
       var ln="Pop "+t.pop;
       ln+=" | Guildes: "+(guilds.length?guilds.join(", "):"aucune");
       ln+=" | Install: "+(inst.length?inst.join(", "):"aucune");
@@ -2033,7 +2042,7 @@ function genSave(){
       LN.push("");LN.push("MAISONS DECHUES:");
       for(var i=0;i<_byTyp.md.length;i++){
         var s=_byTyp.md[i],t=s.t;
-        LN.push("("+s.c+"): "+_tileInfo(t,"md")+" | Corrompu");
+        LN.push("("+s.c+")"+(t.mdH?" ["+t.mdH+"]":"")+": "+_tileInfo(t,"md")+" | Corrompu");
       }
     }
     if(_byTyp.f.length){
@@ -2127,7 +2136,7 @@ function genSave(){
   LN.push("coms:[int,...], glos:[int,...], rf:[{n:0-2},{n:0-2}]");
   LN.push("oPcor:[bool,bool,bool,bool](corruption Offre: Soutien,Force,Richesse,Domination)");
   LN.push('fc:{cq:bool,...}, pr:[{t:"nom",p:bool,c:bool},...](4 slots)');
-  LN.push('tiles:{"col,row":{typ("j"/"n"/"md"/"f"),pop,gN,gE,gM,gC,gS,iBS,iCN,iDS,pur,cv,grd,prm,glo,lib,ships:[{type,cubes}]}}');
+  LN.push('tiles:{"col,row":{typ("j"/"n"/"md"/"f"),pop,gN,gE,gM,gC,gS,iBS(n),iCN(n),iDS(n),pur,cv,grd,prm,glo,lib,ships:[{type,cubes}],mdH}}');
   LN.push("");
   LN.push("=== CLE _notes — OBLIGATOIRE, C'EST LE PLUS IMPORTANT ===");
   LN.push("_notes est AJOUTE au journal (pas remplace). C'est un PROMPT DE CONTINUATION pour ton futur toi.");
@@ -2196,9 +2205,9 @@ function genLight(){
       var cc=coords[i],tt=S.tiles[cc];var _tp2=tt.typ||"n";
       var guilds=[];
       for(var gg=0;gg<GUILDS.length;gg++){var gl=GUILDS[gg];if(tt[gl.k]>0)guilds.push(tt[gl.k]+"x "+gl.nm);}
-      var inst=[];if(tt.iBS)inst.push("BS");if(tt.iCN)inst.push("CN");if(tt.iDS)inst.push("DS");
+      var inst=[];if(tt.iBS)inst.push((tt.iBS>1?tt.iBS+"×":"")+"BS");if(tt.iCN)inst.push((tt.iCN>1?tt.iCN+"×":"")+"CN");if(tt.iDS)inst.push((tt.iDS>1?tt.iDS+"×":"")+"DS");
       if(_tp2==="j"){var shS="";if(tt.ships&&tt.ships.length){var _sa=[];for(var si=0;si<tt.ships.length;si++){_sa.push(tt.ships[si].type+"("+tt.ships[si].cubes+"c)");}shS=" | "+_sa.join(",");}LN.push("("+cc+")[J]: Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+" | "+(tt.pur?"Pur":"Corr")+shS);}
-      else if(_tp2==="md"){LN.push("("+cc+")[MD]: Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+" | Corr"+(tt.glo?" | Glo:"+tt.glo:""));}
+      else if(_tp2==="md"){LN.push("("+cc+")[MD"+(tt.mdH?" "+tt.mdH:"")+"]"+": Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+" | Corr"+(tt.glo?" | Glo:"+tt.glo:""));}
       else if(_tp2==="f"){LN.push("("+cc+")[F]: "+tt.cv+"cv");}
       else{LN.push("("+cc+")[N]: "+tt.cv+"cv | Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+(tt.grd?" Gardien":"")+(tt.prm?" Prime:"+tt.prm:"")+(tt.glo?" Glo:"+tt.glo:""));}
     }
