@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.11.7">
+<meta name="app-version" content="2026.03.11.8">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -262,7 +262,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.11.7";
+var APP_VERSION="2026.03.11.8";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -2120,6 +2120,7 @@ function genLight(){
     LN.push("");
     LN.push("--- SECTEURS ---");
     var coords=Object.keys(S.tiles).sort();
+    var _skipped=0;
     for(var i=0;i<coords.length;i++){
       var cc=coords[i],tt=S.tiles[cc];var _tp2=tt.typ||"n";
       var guilds=[];
@@ -2128,8 +2129,14 @@ function genLight(){
       if(_tp2==="j"){var shS="";if(tt.ships&&tt.ships.length){var _sa=[];for(var si=0;si<tt.ships.length;si++){_sa.push(tt.ships[si].type+"("+tt.ships[si].cubes+"c)");}shS=" | "+_sa.join(",");}LN.push("("+cc+")[J]: Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+" | "+(tt.pur?"Pur":"Corr")+shS);}
       else if(_tp2==="md"){LN.push("("+cc+")[MD"+(tt.mdH?" "+tt.mdH:"")+"]"+": Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+" | Corr"+(tt.glo?" | Glo:"+tt.glo:""));}
       else if(_tp2==="f"){LN.push("("+cc+")[F]: "+tt.cv+"cv");}
-      else{LN.push("("+cc+")[N]: "+tt.cv+"cv | Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+(tt.grd?" Gardien":"")+(tt.prm?" Prime:"+tt.prm:"")+(tt.glo?" Glo:"+tt.glo:""));}
+      else{
+        /* Skip boring Neant sectors: no guilds, no installations, no gardien, no gloire, no prime */
+        var _interesting=guilds.length||inst.length||tt.grd||tt.glo||tt.prm||tt.pop>=3;
+        if(!_interesting){_skipped++;continue;}
+        LN.push("("+cc+")[N]: "+tt.cv+"cv | Pop "+tt.pop+" | "+(guilds.length?guilds.join(", "):"\u2205")+" | "+(inst.length?inst.join(","):"\u2205")+(tt.grd?" Gardien":"")+(tt.prm?" Prime:"+tt.prm:"")+(tt.glo?" Glo:"+tt.glo:""));
+      }
     }
+    if(_skipped)LN.push("("+_skipped+" secteurs Neant vides omis)");
   }
 
   if(has("cri")){
