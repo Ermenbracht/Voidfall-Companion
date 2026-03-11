@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.11.2">
+<meta name="app-version" content="2026.03.11.3">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -262,7 +262,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.11.2";
+var APP_VERSION="2026.03.11.3";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -2085,15 +2085,11 @@ function genSave(){
   return LN.join("\n");
 }
 
-/* genLight() — export léger mid-conversation (état seulement, pas d'instructions) */
+/* genLight() — export léger mid-conversation (sections sélectionnées seulement) */
 function genLight(){
-  var oldSel=sel.slice();
-  sel=SECS.map(function(s){return s.id;});
   var LN=[];var has=function(id){return sel.indexOf(id)!==-1;};
 
-  LN.push("=== MISE A JOUR — ETAT ACTUEL ===");
-  LN.push("(Ceci est un ajustement mid-conversation, PAS un nouveau depart.)");
-  LN.push("");
+  LN.push("=== MISE A JOUR ===");
   LN.push("PARTIE: "+S.house+" (Origine "+S.origin+") | Scenario "+S.scenario+" | Difficulte "+S.diff);
   var phN={prep:"A · Preparation",focus:"B · Focus",eval:"C · Evaluation"}[S.ph];
   LN.push("POSITION: Cycle "+S.cy+" | Manche "+S.mn+"/"+S.mnMax+" | Phase "+phN+" | Influence: ~"+S.inf);
@@ -2179,9 +2175,6 @@ function genLight(){
 
   LN.push("");
   LN.push("=== FIN MISE A JOUR ===");
-  LN.push("Integre ces donnees et continue la conversation.");
-
-  sel=oldSel;
   return LN.join("\n");
 }
 
