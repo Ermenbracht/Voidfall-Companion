@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.12.4">
+<meta name="app-version" content="2026.03.12.5">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -268,7 +268,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.12.4";
+var APP_VERSION="2026.03.12.5";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -2053,12 +2053,24 @@ function genSave(){
   /* Helper: compact resource string N:5 E:3 M:7 C:0 S:5 */
   function _res5(a,b,c,d,e){return "N:"+a+" E:"+b+" M:"+c+" C:"+d+" S:"+e;}
 
-  /* --- CONVERSATION NAME (if _convNum set) --- */
-  if(S._convNum>0){LN.push("Renomme cette conversation : v"+S._convNum+" - Partie 1 solo "+S.house);LN.push("");}
+  /* --- TITLE (becomes Claude.ai conversation name) --- */
+  var _ttl=S._convNum>0?"v"+S._convNum+" - Partie 1 solo "+S.house:"Voidfall solo "+S.house;
+  LN.push(_ttl);
+  LN.push("");
   /* --- INTRO (2 lines) --- */
   LN.push("Voidfall solo — je joue "+S.house+" (Origine "+S.origin+"), scenario "+S.scenario+", difficulte "+S.diff+". Conseille-moi.");
   var phN={prep:"Prep",focus:"Focus",eval:"Eval"}[S.ph];
   LN.push("Cycle "+S.cy+" Manche "+S.mn+"/"+S.mnMax+" Phase "+phN+" | Influence ~"+S.inf);
+  /* --- CORRUPTION SUMMARY (always present, right after intro) --- */
+  var _cc0=calcCor();
+  if(_cc0>0){
+    var _cl0=[];
+    if(S.cS)_cl0.push("Piste Societe");if(S.cG)_cl0.push("Piste Gouvernement");if(S.cE)_cl0.push("Piste Economie");
+    for(var _pi0=0;_pi0<S.pr.length;_pi0++){if(S.pr[_pi0].t&&!S.pr[_pi0].p)_cl0.push("Programme "+(_pi0+1)+" ("+S.pr[_pi0].t+")");}
+    if(S.oPcor){var _on0=["R1-Soutien","R2-Force","R3-Richesse","R4-Domination"];for(var _oi0=0;_oi0<4;_oi0++){if(S.oPcor[_oi0])_cl0.push("Offre "+_on0[_oi0]);}}
+    if(S.tiles){for(var _ck0 in S.tiles){var _ct0=S.tiles[_ck0];if(_ct0.typ==="j"&&!_ct0.pur)_cl0.push("Secteur "+_ck0);if(_ct0.typ==="s"&&_ct0.ter==="md")_cl0.push("Secteur "+_ck0+" (MD)");}}
+    LN.push("Corruption ("+_cc0+"): "+_cl0.join(", "));
+  }else{LN.push("Corruption: 0");}
 
   /* --- RESOURCES (3 lines) --- */
   if(has("res")){
@@ -2133,16 +2145,7 @@ function genSave(){
     function _fR(arr){var p=[];for(var i=0;i<arr.length;i++){if(arr[i])p.push((i+1)+":"+arr[i]);}return p.length?p.join(","):"vide";}
     LN.push("Crise mil=["+_fR(S.crSlots.m)+"] eco=["+_fR(S.crSlots.e)+"] cat:"+S.cat+" corr:"+calcCor());
     if(S.crDraw)LN.push("Crise pigee: "+S.crDraw);
-    /* Corruption breakdown — explicit locations */
-    var _cc=calcCor();
-    if(_cc>0){
-      var _cloc=[];
-      if(S.cS)_cloc.push("Piste Societe");if(S.cG)_cloc.push("Piste Gouvernement");if(S.cE)_cloc.push("Piste Economie");
-      for(var pi=0;pi<S.pr.length;pi++){if(S.pr[pi].t&&!S.pr[pi].p)_cloc.push("Programme "+(pi+1)+" ("+S.pr[pi].t+")");}
-      if(S.oPcor){var _opN2=["R1-Soutien","R2-Force","R3-Richesse","R4-Domination"];for(var oi2=0;oi2<4;oi2++){if(S.oPcor[oi2])_cloc.push("Offre "+_opN2[oi2]);}}
-      if(S.tiles){for(var ck in S.tiles){var _ct=S.tiles[ck];if(_ct.typ==="j"&&!_ct.pur)_cloc.push("Secteur "+ck);if(_ct.typ==="s"&&_ct.ter==="md")_cloc.push("Secteur "+ck+" (MD)");}}
-      LN.push("Corruption ("+_cc+"): "+_cloc.join(", "));
-    }
+    /* Corruption breakdown moved to intro — see top of genSave */
   }
 
   if(has("div")){
@@ -2180,6 +2183,7 @@ function genSave(){
   /* --- FIN — phrase courte, le system prompt gère le reste --- */
   LN.push("");
   LN.push("Voici mon etat de partie. Conseille-moi.");
+  if(S._convNum>0){LN.push("(Renomme cette conversation : "+_ttl+")");}
   return LN.join("\n");
 }
 
