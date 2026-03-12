@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.12.5">
+<meta name="app-version" content="2026.03.12.6">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -268,7 +268,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.12.5";
+var APP_VERSION="2026.03.12.6";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -2053,10 +2053,14 @@ function genSave(){
   /* Helper: compact resource string N:5 E:3 M:7 C:0 S:5 */
   function _res5(a,b,c,d,e){return "N:"+a+" E:"+b+" M:"+c+" C:"+d+" S:"+e;}
 
-  /* --- TITLE (becomes Claude.ai conversation name) --- */
+  /* --- TITLE + RENAME INSTRUCTION --- */
   var _ttl=S._convNum>0?"v"+S._convNum+" - Partie 1 solo "+S.house:"Voidfall solo "+S.house;
-  LN.push(_ttl);
-  LN.push("");
+  if(S._convNum>0){
+    LN.push("⚠️ PREMIERE ACTION OBLIGATOIRE : ta premiere ligne de reponse DOIT etre exactement ceci :");
+    LN.push("\"Renomme cette conversation : **"+_ttl+"**\"");
+    LN.push("Ensuite seulement, passe a l'analyse.");
+    LN.push("");
+  }
   /* --- INTRO (2 lines) --- */
   LN.push("Voidfall solo — je joue "+S.house+" (Origine "+S.origin+"), scenario "+S.scenario+", difficulte "+S.diff+". Conseille-moi.");
   var phN={prep:"Prep",focus:"Focus",eval:"Eval"}[S.ph];
@@ -2183,7 +2187,6 @@ function genSave(){
   /* --- FIN — phrase courte, le system prompt gère le reste --- */
   LN.push("");
   LN.push("Voici mon etat de partie. Conseille-moi.");
-  if(S._convNum>0){LN.push("(Renomme cette conversation : "+_ttl+")");}
   return LN.join("\n");
 }
 
