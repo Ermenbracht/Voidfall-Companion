@@ -2312,7 +2312,7 @@ function closeExpFullOv(){var el=document.getElementById("_expFullOv");if(el)el.
 function doExportFull(){
   var inp=document.getElementById("_convNumIn");
   var vNum=inp?parseInt(inp.value)||1:1;
-  S._convNum=vNum;save();
+  S._convNum=vNum;saveState();
   closeExpFullOv();
   var oldSel=sel.slice();
   sel=SECS.map(function(s){return s.id;});
