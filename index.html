@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Voidfall">
 <meta name="theme-color" content="#0c0714">
-<meta name="app-version" content="2026.03.13.1">
+<meta name="app-version" content="2026.03.13.2">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -268,7 +268,7 @@ textarea{resize:vertical;min-height:60px}
 
 
 <script>
-var APP_VERSION="2026.03.13.1";
+var APP_VERSION="2026.03.13.2";
 
 /* =================================================================
    LUCIDE ICON HELPER
@@ -1917,20 +1917,18 @@ function rSec_cri(){
   o+='</div>';
   if(S.cat>=3) o+='<div class="warn">'+L("skull","ic-sm")+' '+(S.cat>=4?"D\u00c9FAITE IMM\u00c9DIATE !":S.cat+"/4 Catastrophes !")+'</div>';
 
-  /* Corruption totale — auto-calculée */
+  /* Corruption totale — auto-calculée, détaillée */
   var _cc=calcCor();
-  var _cpis=(S.cS?1:0)+(S.cG?1:0)+(S.cE?1:0);
-  var _cprg=0;for(var pi=0;pi<S.pr.length;pi++){if(S.pr[pi].t&&!S.pr[pi].p)_cprg++;}
-  var _coff=0;if(S.oPcor)for(var oi2=0;oi2<S.oPcor.length;oi2++){if(S.oPcor[oi2])_coff++;}
-  var _ctil=0;if(S.tiles)for(var ck in S.tiles){var _tt=S.tiles[ck];if((_tt.typ==="j"&&!_tt.pur)||(_tt.typ==="s"&&_tt.ter==="md"))_ctil++;}
+  var _cdets=[];
+  if(S.cS)_cdets.push('Piste Soci\u00e9t\u00e9');if(S.cG)_cdets.push('Piste Gouvernement');if(S.cE)_cdets.push('Piste \u00c9conomie');
+  for(var pi=0;pi<S.pr.length;pi++){if(S.pr[pi].t&&!S.pr[pi].p)_cdets.push('Programme '+(pi+1)+' ('+esc(S.pr[pi].t)+')');}
+  if(S.oPcor){var _onU=["Soutien","Force","Richesse","Domination"];for(var oi2=0;oi2<4;oi2++){if(S.oPcor[oi2])_cdets.push('Offre '+_onU[oi2]);}}
+  if(S.tiles)for(var ck in S.tiles){var _tt=S.tiles[ck];if(_tt.typ==="j"&&!_tt.pur)_cdets.push(_tileRole(ck)+' ('+ck+')');if(_tt.typ==="s"&&_tt.ter==="md")_cdets.push(_tileRole(ck)+' ('+ck+')');}
   o+='<div class="card"><div class="card-t">'+L("skull")+'Corruption</div>';
   o+='<div style="font-size:1.3rem;font-weight:700;text-align:center;color:'+(_cc>0?'var(--err)':'var(--ok)')+';margin:8px 0">'+_cc+' cube'+(_cc>1?'s':'')+' corruption</div>';
   o+='<div style="font-size:.66rem;color:var(--tx2);line-height:1.6;margin-bottom:4px">';
-  if(_cpis)o+='Pistes : '+_cpis+'<br>';
-  if(_cprg)o+='Programmes : '+_cprg+'<br>';
-  if(_coff)o+='Offre : '+_coff+'<br>';
-  if(_ctil)o+='Secteurs : '+_ctil+'<br>';
-  if(_cc===0)o+='Aucune corruption \u2014 bien jou\u00e9 !';
+  if(_cdets.length){for(var di=0;di<_cdets.length;di++)o+='\u2022 '+_cdets[di]+'<br>';}
+  else o+='Aucune corruption \u2014 bien jou\u00e9 !';
   o+='</div>';
   o+='<div style="font-size:.6rem;color:var(--tx2);opacity:.7">\u22121 Influence par cube \u00e0 l\u2019\u00c9valuation = \u2212'+_cc+' Influence</div>';
   o+='</div>';
